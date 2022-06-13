@@ -1,0 +1,1 @@
+web: gunicorn UIASM.wsgi --log-file -

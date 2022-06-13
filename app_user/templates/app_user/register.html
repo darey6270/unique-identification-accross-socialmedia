@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{%block content %}
+<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h5 class="page-title">Registration</h5>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Register a new account</h3>
+							<p class="text-center text-muted">you can, <a href="{% url 'user_login' %}">Login</a> into our web-based unique user identification across social media. </p>
+							<hr>
+
+							<form method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="top-margin">
+									<label>First Name</label>
+									{% render_field user_form.first_name|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your firstname" %}
+								</div>
+								<div class="top-margin">
+									<label>Last Name</label>
+									{% render_field user_form.last_name|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your lastname" %}
+								</div>
+								<div class="top-margin">
+									<label>Email Address <span class="text-danger">*</span></label>
+									{% render_field user_form.email|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your email address" %}
+									{{user_form.email.errors}}
+								</div>
+
+                                 <div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Username <span class="text-danger">*</span></label>
+										{% render_field user_form.username|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your username" %}
+									{{user_form.username.errors}}
+									</div>
+								 </div>
+
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Password <span class="text-danger">*</span></label>
+										{% render_field user_form.password1|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your password" %}
+									</div>
+									<div class="col-sm-6">
+										<label>Confirm Password <span class="text-danger">*</span></label>
+										{% render_field user_form.password2|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="retype the password for confirmation" %}
+									</div>
+									{{user_form.password2.errors}}
+								</div>
+									 <div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Gender <span class="text-danger">*</span></label>
+										{% render_field profile_form.gender|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="choose your gender" %}
+									</div>
+									<div class="col-sm-6">
+										<label>Phone Number <span class="text-danger">*</span></label>
+										{% render_field profile_form.phone_no|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your number" %}
+									</div>
+								</div>
+									 <div class="top-margin">
+									<label>Location</label>
+									{% render_field profile_form.location|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your location" %}
+								</div>
+								<div class="top-margin">
+									<label>Image</label>
+									{% render_field profile_form.profile_pic|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="upload your profile picture" %}
+								</div>
+								<hr>
+
+								<div class="row">
+									<div class="col-lg-8">
+										<label class="checkbox">
+											<input type="checkbox"> 
+											I've read the <a href="page_terms.html">Terms and Conditions</a>
+										</label>                        
+									</div>
+									<div class="col-lg-4 text-right">
+										<button  class="btn btn-action" type="submit">Register</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+{%endblock %}

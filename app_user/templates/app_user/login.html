@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{%block content %}
+<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h5 class="page-title">Sign in</h5>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Sign in to your account</h3>
+							<p class="text-center text-muted">Don't Have an account? <a href="{% url 'register' %}">Register</a> into our web-based unique user identification across social media </p>
+							<hr>
+							<ul type="none">
+							   <li>{{ form.errors }}</li>
+							</ul>
+							<form method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="top-margin">
+									<label>Username <span class="text-danger">*</span></label>
+									{% render_field form.username|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingInput" placeholder="Enter your username" %}
+								</div>
+								<div class="top-margin">
+									<label>Password <span class="text-danger">*</span></label>
+									{% render_field form.password|attr:'required:false'   class="form-control bg-light border-0 px-4" id="floatingPassword" placeholder="Enter password" %}
+								</div>
+
+								<hr>
+
+								<div class="row">
+									<div class="col-lg-8">
+										<b><a href="{% url 'register' %}" class=" btn btn-action">Register</a></b>
+									</div>
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Sign in</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+	
+
+{%endblock %}

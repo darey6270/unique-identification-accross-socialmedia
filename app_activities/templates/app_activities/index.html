@@ -1,0 +1,328 @@
+{%extends 'base.html' %}
+{% load widget_tweaks %}
+{%load static %}
+
+{%block navbar %}
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom text-white" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="{% url 'app_activities:index' %}">Home</a></li>
+					<li><a class="btn" href="" data-toggle="modal" data-target="#myModal2">Your Profile</a></li>
+					<li><a class="btn" href="" data-toggle="modal" data-target="#myModal">Edit profile</a></li>
+					<li><a class="btn" href="" data-toggle="modal" data-target="#myModal3">Find friends</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle btn" data-toggle="dropdown">Your Account <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li class="active"><a href="{% url 'user_logout' %}">Logout</a></li>
+							<li><button  data-toggle="modal" data-target="#myModal">Edit profile</button></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+{%endblock %}
+
+{%block content %}
+
+<!-- model for edit profile  -->
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Find friends</h4>
+      </div>
+      <div class="modal-body">
+<div class="row d-flex justify-content-center mt-3">
+					<form method="GET" class="text-center">
+        <input type="text" name="username" placeholder="find your friend" >
+        <input  type="submit" class="btn" value='Search'>
+    </form>
+</div>
+						</div>
+					</div>
+      </div>
+
+</div>
+
+<br /><br /> <br /> <br />
+
+<header id="head" class="secondary"></header>
+	<!-- container -->
+	<div class="container mt-4">
+		<div class="row">
+			
+			<!-- Sidebar -->
+			<aside class="col-md-4 sidebar sidebar-left">
+
+				<div class="row widget">
+					<div class="col-xs-12">
+						<h4 class="btn btn-primary">Applications Catalog</h4>
+						<ul class="" type="none">
+					<li><button data-toggle="modal" data-target="#myModal3">Find friends</button></li>
+					<li><button   data-toggle="modal" data-target="#myModal">Edit profile</button></li>
+					<li><button data-toggle="modal" data-target="#myModal2">View Profile</button></li>
+						</ul>
+											</div>
+				</div>
+				<div class="row widget">
+					<div class="col-xs-12">
+						<h4 class="btn btn-primary">Interests</h4>
+						<ul class="" type="none">
+					<li><a href="{% url 'user_logout' %}">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+			</aside>
+			<!-- /Sidebar -->
+
+			<!-- Article main content -->
+			<article class="col-md-8 maincontent">
+				<header class="page-header">
+					<h6 class="page-title">Welcome {{ request.user}}</h6>
+				</header>
+
+               {% if results %}
+				<blockquote>
+              <div class="row">
+			{% for result in results %}
+				{% if 'facebook.com' in result %}
+				  <div class="col">
+					  <a href="{{result}}" >
+					<div class="card" style="width: 18rem;">
+					  <img class="card-img-top" src="{% static 'assets/images/Facebook-Logo2.png'  %}" alt="Card image cap">
+					  <div class="card-body">
+						<p class="card-text">Your facebook handle </p>
+					  </div>
+					</div>
+					  </a>
+				  </div>
+				{% endif %}
+
+				  {% if 'twitter.com' in result %}
+				  <div class="col">
+					  <a href="{{result}}">
+					<div class="card" style="width: 18rem;">
+					  <img class="card-img-top" src="{% static 'assets/images/twitter_logo.jpg'  %}" alt="Card image cap">
+					  <div class="card-body">
+						<p class="card-text">Your twitter handle </p>
+					  </div>
+					</div>
+						  </a>
+				  </div>
+				{% endif %}
+
+				  {% if 'instagram.com' in result %}
+				  <div class="col">
+					  <a href="{{result}}" >
+					<div class="card" style="width: 18rem;">
+					  <img class="card-img-top" src="{% static 'assets/images/instagram_logo.jpg'  %}" alt="Card image cap">
+					  <div class="card-body">
+						<p class="card-text">Your instagram handle </p>
+					  </div>
+					</div>
+						  </a>
+				  </div>
+				{% endif %}
+
+				  {% if 'badoo.com' in result %}
+				  <div class="col">
+					  <a href="{{result}}" >
+					<div class="card" style="width: 18rem;">
+					  <img class="card-img-top" src="{% static 'assets/images/baddo_logo.jpg'  %}" alt="Card image cap">
+					  <div class="card-body">
+						<p class="card-text">Your badoo handle </p>
+					  </div>
+					</div>
+						  </a>
+				  </div>
+				{% endif %}
+	{% empty %}
+		<div>No friend with that handle on social networks</div>
+	{% endfor %}
+			  </div>
+				</blockquote>
+				{% else %}
+				<blockquote>{{contents}}</blockquote>
+				{%endif%}
+
+							</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+
+
+<!-- model for edit profile  -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+      </div>
+      <div class="modal-body">
+
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">update your profile account</h3>
+							<hr>
+
+							<form method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="top-margin">
+									<label>First Name</label>
+                                    <input type="text" name="firstname" class="form-control bg-light border-0 px-4" placeholder="update your firstname" required>
+								</div>
+								<div class="top-margin">
+									<label>Last Name</label>
+									<input type="text" name="lastname" class="form-control bg-light border-0 px-4" placeholder="update your lastname" required>
+								</div>
+								<div class="top-margin">
+									<label>Email Address <span class="text-danger">*</span></label>
+									<input type="email" name="email" class="form-control bg-light border-0 px-4" placeholder="update your email address" required>
+											</div>
+
+                                 <div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Username <span class="text-danger">*</span></label>
+										<input type="text" name="username" class="form-control bg-light border-0 px-4" placeholder="update your username" required>
+									</div>
+								 </div>
+
+									<div class="col-sm-6">
+										<label>Password <span class="text-danger">*</span></label>
+										<input type="password" name="password" class="form-control bg-light border-0 px-4" placeholder="update your password" required>
+									</div>
+
+
+									<div class="col-sm-6">
+										<label>Phone Number <span class="text-danger">*</span></label>
+										<input type="number" name="phone_no" class="form-control bg-light border-0 px-4" placeholder="update your password" required>
+									</div>
+
+									 <div class="top-margin">
+									<label>Location</label>
+									<input type="text" name="location" class="form-control bg-light border-0 px-4" placeholder="update your location" required>
+									 </div>
+								<hr>
+										<div class="modal-footer">
+									<div class="row top-margin">
+									<div class="col-sm-6">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+									<div class="col-sm-6">
+										<input  class="btn btn-primary" type="submit" value="Save changes" />
+									</div>
+								</div>
+										</div>
+
+                                      </div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+      </div>
+<!-- edit profile   -->
+
+
+<!-- model for view profile  -->
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">View Profile</h4>
+      </div>
+      <div class="modal-body">
+
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h5 class="thin text-center">This is your profile account</h5>
+							<hr>
+							<table class="table">
+    <tbody>
+      <tr>
+	  {% if user.username %}
+        <td>Username</td>
+        <td>{{user.username}}</td>
+	  {%endif%}
+      </tr>
+      <tr>
+	{% if user.first_name %}
+        <td>Firstname</td>
+        <td>{{user.first_name}}</td>
+	{%endif%}
+      </tr>
+      <tr>
+	{% if user.last_name %}
+        <td>Lastname</td>
+        <td>{{user.last_name}}</td>
+	{%endif%}
+      </tr>
+	<tr>
+	{% if user.email %}
+        <td>Email</td>
+        <td>{{user.email}}</td>
+	{%endif%}
+      </tr>
+
+	<tr>
+	{% if userProfile.location %}
+        <td>Location</td>
+        <td>{{userProfile.location}}</td>
+	{%endif%}
+      </tr>
+
+	<tr>
+	{% if userProfile.phone_no %}
+        <td>Lastname</td>
+        <td>{{userProfile.phone_no}}</td>
+	{%endif%}
+      </tr>
+
+	<tr>
+	{% if userProfile.gender %}
+        <td>Lastname</td>
+        <td>{{userProfile.gender}}</td>
+	{%endif%}
+      </tr>
+    </tbody>
+  </table>
+						</div>
+								</div>
+						</div>
+					</div>
+      </div>
+<!-- end of edit of profile-->
+
+<!-- model for  find friends  -->
+
+
+<!-- model for view profile  -->
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+{%endblock %}
